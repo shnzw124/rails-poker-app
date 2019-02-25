@@ -24,4 +24,13 @@ class Card < ApplicationRecord
   def count_same_number
     @number_of_sets = @number.group_by{|number|number}.map{|key, value|value.size }.sort.reverse
   end
+
+  def flush?
+    variety = @suit.uniq.size
+    if variety == 1
+      @flush = true
+    else
+      @flush = false
+    end
+  end
 end
