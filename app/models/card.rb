@@ -20,4 +20,8 @@ class Card < ApplicationRecord
       @number.push card[1..-1].to_i
     end
   end
+
+  def count_same_number
+    @number_of_sets = @number.group_by{|number|number}.map{|key, value|value.size }.sort.reverse
+  end
 end
