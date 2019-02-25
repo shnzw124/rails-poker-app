@@ -1,4 +1,17 @@
 class Card < ApplicationRecord
+  VALID_CARD_REGEX =  /\A[SHDC]([1-9]|1[0-3]) [SHDC]([1-9]|1[0-3]) [SHDC]([1-9]|1[0-3]) [SHDC]([1-9]|1[0-3]) [SHDC]([1-9]|1[0-3])\z/
+  validate :check_valid_card
+
+  def check_valid_card
+    if @cards.blank?
+      errors[:base] << "手札の情報が入力されていません。手札の情報を入力してください。（例：S8 S7 H6 H5 S4）"
+    end
+
+    unless @cards.match(VALID_CARD_REGEX)
+      errors[:base] << "手札の情報が不正です。手札の情報を正確に入力してください。（例：S8 S7 H6 H5 S4）"
+    end
+  end
+
   POKER_HAND = ["High Card", "One Pair", "Two Pair", "Three of a Kind",
                 "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush"]
   attr_accessor :cards, :card, :suit, :number, :number_of_sets, :flush, :straight, :hand, :strength
