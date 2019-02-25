@@ -1,0 +1,6 @@
+<div class="form">
+  <%= form_for @cards, :url => {:action => 'check'} do |f| %>
+    <%= f.text_field :cards, :class=>"text_field" %>
+    <%= f.submit 'Check', :class=>"submit" %>
+  <% end %>
+</div>
