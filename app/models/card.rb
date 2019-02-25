@@ -33,4 +33,13 @@ class Card < ApplicationRecord
       @flush = false
     end
   end
+
+  def straight?
+    steps = @number.sort.map{|number|number - @number[0]}
+    if steps == [-4,-3,-2,-1,0] || steps == [0,9,10,11,12]
+      @straight = true
+    else
+      @straight = false
+    end
+  end
 end
