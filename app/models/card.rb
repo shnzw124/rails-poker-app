@@ -42,4 +42,34 @@ class Card < ApplicationRecord
       @straight = false
     end
   end
+
+  def judge_hand
+    case [@straight, @flush]
+    when [true, true]
+      @hand = POKER_HAND[8]
+    when [false, true]
+      @hand = POKER_HAND[5]
+    when [true, false]
+      @hand = POKER_HAND[4]
+    else
+      case @number_of_sets
+      when [4, 1]
+        @hand = POKER_HAND[7]
+      when [3, 2]
+        @hand = POKER_HAND[6]
+      when [3, 1, 1]
+        @hand = POKER_HAND[3]
+      when [2, 2, 1]
+        @hand = POKER_HAND[2]
+      when [2, 1, 1, 1]
+        @hand = POKER_HAND[1]
+      else
+        @hand = POKER_HAND[0]
+      end
+    end
+  end
+
+  def judge_strength
+    @strength = POKER_HAND.index(@hand)
+  end
 end
