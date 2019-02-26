@@ -10,13 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_25_042518) do
-
-  create_table "cards", force: :cascade do |t|
-    t.string "card_set"
-    t.string "hand"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 2019_02_26_054643) do
 
 end
