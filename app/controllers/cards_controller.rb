@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
   def top
-    @cards = Card.new
+    @card = Card.new
   end
 
   def result
@@ -10,16 +10,15 @@ class CardsController < ApplicationController
   end
 
   def check
-    @cards = Card.new(card_params)
-    if @cards.save
-      @cards.split_cards
-      @cards.split_card_into_suit
-      @cards.split_card_into_number
-      @cards.count_same_number
-      @cards.flush?
-      @cards.straight?
-      @cards.judge_hand
-      render :result
+    @card = Card.new(card_params)
+    if @card
+      @service = JudgeService.new(card_params)
+      if @service.valid?
+        @service.judge
+        render :result
+      else
+        render :error
+      end
     else
       render :error
     end
@@ -27,6 +26,6 @@ class CardsController < ApplicationController
 
   private
   def card_params
-    params.require(:card).permit(:cards)
+    params.require(:card).permit(:card_set)
   end
 end
