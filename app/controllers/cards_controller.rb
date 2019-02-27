@@ -13,7 +13,7 @@ class CardsController < ApplicationController
     @card = JudgeService.new(card_params)
     if @card.valid?
       @card.judge
-      render :result
+      render :result, :status => 200
     else
       render :error
     end
