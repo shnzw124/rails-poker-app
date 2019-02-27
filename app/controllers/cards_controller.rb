@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
   def top
-    @card = Card.new
+    @card = JudgeService.new
   end
 
   def result
@@ -10,15 +10,10 @@ class CardsController < ApplicationController
   end
 
   def check
-    @card = Card.new(card_params)
-    if @card
-      @service = JudgeService.new(card_params)
-      if @service.valid?
-        @service.judge
-        render :result
-      else
-        render :error
-      end
+    @card = JudgeService.new(card_params)
+    if @card.valid?
+      @card.judge
+      render :result
     else
       render :error
     end
@@ -26,6 +21,6 @@ class CardsController < ApplicationController
 
   private
   def card_params
-    params.require(:card).permit(:card_set)
+    params.require(:judge_service).permit(:card_set)
   end
 end

@@ -19,9 +19,9 @@ class JudgeService
   end
 
   def judge
-    split_cards
-    split_card_into_suit
-    split_card_into_number
+    split_card_set
+    split_cards_into_suits
+    split_cards_into_numbers
     count_same_number
     flush?
     straight?
@@ -30,18 +30,18 @@ class JudgeService
   end
 
   private
-  def split_cards()
+  def split_card_set()
     @cards = @card_set.split(" ")
   end
 
-  def split_card_into_suit()
+  def split_cards_into_suits()
     @suits = []
     @cards.each do |card|
       @suits.push card[0]
     end
   end
 
-  def split_card_into_number()
+  def split_cards_into_numbers()
     @numbers = []
     @cards.each do |card|
       @numbers.push card[1..-1].to_i
@@ -63,7 +63,7 @@ class JudgeService
 
   def straight?()
     steps = @numbers.sort.map{|number|number - @numbers[0]}
-    if steps == [0,1,2,3,4] || steps == [0,9,10,11,12]
+    if steps == [-4,-3,-2,-1,0] || steps == [0,9,10,11,12]
       @straight = true
     else
       @straight = false
