@@ -20,8 +20,6 @@ class JudgeService
 
   def judge
     split_card_set
-    split_cards_into_suits
-    split_cards_into_numbers
     count_same_number
     flush?
     straight?
@@ -32,18 +30,12 @@ class JudgeService
   private
   def split_card_set()
     @cards = @card_set.split(" ")
-  end
 
-  def split_cards_into_suits()
     @suits = []
+    @numbers = []
+
     @cards.each do |card|
       @suits.push card[0]
-    end
-  end
-
-  def split_cards_into_numbers()
-    @numbers = []
-    @cards.each do |card|
       @numbers.push card[1..-1].to_i
     end
   end
