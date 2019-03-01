@@ -24,7 +24,6 @@ class JudgeService
     flush?
     straight?
     judge_hand
-    judge_strength
   end
 
   private
