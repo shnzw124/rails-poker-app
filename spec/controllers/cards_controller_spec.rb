@@ -17,4 +17,31 @@ describe CardsController do
     end
   end
 
+  describe 'Post #check' do
+    let(:judge_service) { JudgeService.new() }
+    context '有効なパラメータの場合' do
+      it 'リクエストは200 OKとなること' do
+        card_set = 'C7 C6 C5 C4 C3'
+        post :check, params: { judge_service: { card_set: card_set } }
+        expect(response.status).to eq 200
+      end
+      it ':resultテンプレートを表示すること' do
+        card_set = 'C7 C6 C5 C4 C3'
+        post :check, params: { judge_service: { card_set: card_set } }
+        expect(response).to render_template :result
+      end
+    end
+    context '無効なパラメータの場合' do
+      it 'リクエストは200 OKとなること' do
+        card_set = ''
+        post :check, params: { judge_service: { card_set: card_set } }
+        expect(response.status).to eq 200
+      end
+      it ':errorテンプレートを表示すること' do
+        card_set = ''
+        post :check, params: { judge_service: { card_set: card_set } }
+        expect(response).to render_template :error
+      end
+    end
+  end
 end

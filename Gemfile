@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'guard-rspec', require: false
+  gem "factory_bot_rails", "~> 4.0"
 end
 
 group :development do
