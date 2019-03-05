@@ -6,7 +6,7 @@ module API
       format :json
       formatter :json, Grape::Formatter::Jbuilder
 
-      mount API::V1::Judge
+      mount API::V1::Cards::Check
     end
   end
 end
