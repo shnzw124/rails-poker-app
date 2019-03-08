@@ -5,7 +5,10 @@ class JudgeService
   POKER_HAND = ["High Card", "One Pair", "Two Pair", "Three of a Kind",
                 "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush"]
 
-  attr_accessor :card_set, :cards, :suits, :numbers, :number_set, :flush, :straight, :hand, :strength, :best, :msg
+  # Todo:attr_writerから:bestを除く
+  attr_writer :card_set, :best
+  attr_reader :card_set, :cards, :suits, :numbers, :number_set, :flush, :straight, :hand, :strength, :best, :msg
+
   validate :check_valid_card_set
 
   def check_valid_card_set
