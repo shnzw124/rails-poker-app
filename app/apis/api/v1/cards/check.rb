@@ -2,14 +2,14 @@ module API
   module V1
     module Cards
       class Check < Grape::API
-        resource :check do
+        resource :cards do
 
-          # POST /api/v1/judge
+          # POST /api/v1/cards/check
           desc 'Judge hand, strength and best hand'
           params do
             requires :cards, type: Array[String]
           end
-          post '/', jbuilder:'cards/check' do
+          post :check, jbuilder:'cards/check' do
             # Json → Arrayにパースして配列から一つずつeachで取り出して役判定＋強さ判定 → 最終的に強さを比較して最も強いものにbest = trueで返す
 
             # 配列card_setsを定義する(type: Array(String))
