@@ -5,10 +5,6 @@ class JudgeService
   POKER_HAND = ["High Card", "One Pair", "Two Pair", "Three of a Kind",
                 "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush"]
 
-  # Todo:attr_writerから:bestを除く
-  # attr_writer :card_set, :best
-  # attr_reader :card_set, :cards, :suits, :numbers, :number_set, :flush, :straight, :hand, :strength, :best, :msg
-
   attr_accessor :card_set, :best
   attr_reader :cards, :suits, :numbers, :number_set, :flush, :straight, :hand, :strength, :msg
 
@@ -39,25 +35,30 @@ class JudgeService
     judge_score
   end
 
-  def self.judge_best(cards)
-    # 配列cardsの中で最も強い役の手札にbest: trueをつける
-    scores = []
-
-    cards.each do |card|
-      scores.push card.strength.to_i
+  class << self
+    def judge_strongest(cards)
+      judge_best(cards)
     end
 
-    high_score =  scores.max
+    private
+    def judge_best(cards)
+      scores = []
 
-    for i in 0..cards.length-1 do
-      if cards[i].strength == high_score
-        cards[i].best = true
-      else
-        cards[i].best = false
+      cards.each do |card|
+        scores.push card.strength.to_i
+      end
+
+      high_score =  scores.max
+
+      for i in 0..cards.length-1 do
+        if cards[i].strength == high_score
+          cards[i].best = true
+        else
+          cards[i].best = false
+        end
       end
     end
   end
-
 
   private
   def split_card_set()

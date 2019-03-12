@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f6c75e3-fe99-4cde-a692-426e25fb24f2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/check-poker-hand.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/check-poker-hand.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/apis/api/v1/cards/check.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/apis/api/v1/cards/check.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/cards_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/cards_controller.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/services/cards/judge_service.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/cards/judge_service.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spec/services/judge_service_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/services/judge_service_spec.rb" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -27,20 +24,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/services/cards/judge_service.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
+            <state relative-caret-position="585">
+              <caret line="39" column="23" lean-forward="true" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/apis/api/v1/cards/check.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="46" column="18" lean-forward="true" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
+            <state relative-caret-position="167">
+              <caret line="14" column="46" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -82,8 +79,8 @@
         <option value="$PROJECT_DIR$/app/apis/api/root.rb" />
         <option value="$PROJECT_DIR$/spec/services/judge_service_spec.rb" />
         <option value="$PROJECT_DIR$/app/controllers/cards_controller.rb" />
-        <option value="$PROJECT_DIR$/app/apis/api/v1/cards/check.rb" />
         <option value="$PROJECT_DIR$/app/services/cards/judge_service.rb" />
+        <option value="$PROJECT_DIR$/app/apis/api/v1/cards/check.rb" />
       </list>
     </option>
   </component>
@@ -333,7 +330,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60975000" />
+    <option name="totallyTimeSpent" value="63473000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -562,17 +559,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/apis/api/v1/cards/check.rb">
+    <entry file="file://$PROJECT_DIR$/app/services/cards/judge_service.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="46" column="18" lean-forward="true" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
+        <state relative-caret-position="585">
+          <caret line="39" column="23" lean-forward="true" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/cards/judge_service.rb">
+    <entry file="file://$PROJECT_DIR$/app/apis/api/v1/cards/check.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
+        <state relative-caret-position="167">
+          <caret line="14" column="46" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
         </state>
       </provider>
     </entry>
