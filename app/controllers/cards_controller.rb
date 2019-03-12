@@ -1,4 +1,6 @@
 class CardsController < ApplicationController
+
+
   def top
     @card = JudgeService.new
   end
@@ -12,7 +14,7 @@ class CardsController < ApplicationController
   def check
     @card = JudgeService.new(card_params)
     if @card.valid?
-      @card.judge
+      @card.judge_role
       render :result, :status => 200
     else
       render :error

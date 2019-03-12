@@ -43,29 +43,30 @@ module API
 
             for card in @cards do
               if card.check_valid_card_set == nil
-                card.judge
                 card.judge_strength
               else
                 next
               end
             end
 
-            # 配列cardsの中で最も強い役の手札にbest: trueをつける
-            scores = []
+            JudgeService.judge_best(@cards)
 
-            @cards.each do |card|
-              scores.push card.strength.to_i
-            end
-
-            high_score =  scores.max
-
-            for i in 0..@cards.length-1 do
-              if @cards[i].strength == high_score
-                @cards[i].best = true
-              else
-                @cards[i].best = false
-              end
-            end
+            # # 配列cardsの中で最も強い役の手札にbest: trueをつける
+            # scores = []
+            #
+            # @cards.each do |card|
+            #   scores.push card.strength.to_i
+            # end
+            #
+            # high_score =  scores.max
+            #
+            # for i in 0..@cards.length-1 do
+            #   if @cards[i].strength == high_score
+            #     @cards[i].best = true
+            #   else
+            #     @cards[i].best = false
+            #   end
+            # end
           end
         end
       end
