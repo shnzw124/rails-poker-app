@@ -12,24 +12,26 @@ class JudgeService
 
   def check_valid_card_set
     if @card_set.blank?
+      errors[:base] << "手札の情報が入力されていません。手札の情報を入力してください。（例：S8 S7 H6 H5 S4）"
       @msg = "手札の情報が入力されていません。手札の情報を入力してください。（例：S8 S7 H6 H5 S4）"
     elsif @card_set.match(VALID_CARD_REGEX) == nil
+      errors[:base] << "手札の情報が不正です。手札の情報を正確に入力してください。（例：S8 S7 H6 H5 S4）"
       @msg = "手札の情報が不正です。手札の情報を正確に入力してください。（例：S8 S7 H6 H5 S4）"
     else
       @msg = nil
     end
   end
 
-  def judge_hand
+  def judge_role
     split_card_set
     count_same_number
     flush?
     straight?
-    judge_role
+    judge_hand
   end
 
   def judge_strength
-    judge_hand
+    judge_role
     judge_score
   end
 
@@ -93,7 +95,7 @@ class JudgeService
     end
   end
 
-  def judge_role()
+  def judge_hand()
     case [@straight, @flush]
     when [true, true]
       @hand = POKER_HAND[8]
