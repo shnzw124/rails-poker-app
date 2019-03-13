@@ -6,6 +6,23 @@ module API
       format :json
       formatter :json, Grape::Formatter::Jbuilder
 
+      # rescue_fromは書いた順番にマッチングされる
+
+      # 400 Bad Request
+      rescue_from Grape::Exceptions::Base do
+        error!(error: "400 Bad Request：不正なリクエストです")
+      end
+
+      # 404 Not Found
+      route :any, '*path' do
+        error!(error: "404 Not Found：指定されたURLは存在しません")
+      end
+
+      # 500 Internal Server Error
+      rescue_from Exception do
+        error!(error: "500 Internal Server Error：予期しないエラーです")
+      end
+
       mount API::V1::Cards::Check
     end
   end
