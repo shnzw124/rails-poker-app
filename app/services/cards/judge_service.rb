@@ -5,25 +5,59 @@ class JudgeService
   POKER_HAND = ["High Card", "One Pair", "Two Pair", "Three of a Kind",
                 "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush"]
 
-  attr_accessor :card_set, :cards, :suits, :numbers, :number_set, :flush, :straight, :hand, :strength
+  attr_accessor :card_set, :best
+  attr_reader :cards, :suits, :numbers, :number_set, :flush, :straight, :hand, :strength, :msg
+
   validate :check_valid_card_set
 
   def check_valid_card_set
     if @card_set.blank?
       errors[:base] << "手札の情報が入力されていません。手札の情報を入力してください。（例：S8 S7 H6 H5 S4）"
-    end
-
-    unless @card_set.match(VALID_CARD_REGEX)
+      @msg = "手札の情報が入力されていません。手札の情報を入力してください。（例：S8 S7 H6 H5 S4）"
+    elsif @card_set.match(VALID_CARD_REGEX) == nil
       errors[:base] << "手札の情報が不正です。手札の情報を正確に入力してください。（例：S8 S7 H6 H5 S4）"
+      @msg = "手札の情報が不正です。手札の情報を正確に入力してください。（例：S8 S7 H6 H5 S4）"
+    else
+      @msg = nil
     end
   end
 
-  def judge
+  def judge_role
     split_card_set
     count_same_number
     flush?
     straight?
     judge_hand
+  end
+
+  def judge_strength
+    judge_role
+    judge_score
+  end
+
+  class << self
+    def judge_strongest(cards)
+      judge_best(cards)
+    end
+
+    private
+    def judge_best(cards)
+      scores = []
+
+      cards.each do |card|
+        scores.push card.strength.to_i
+      end
+
+      high_score =  scores.max
+
+      for i in 0..cards.length-1 do
+        if cards[i].strength == high_score
+          cards[i].best = true
+        else
+          cards[i].best = false
+        end
+      end
+    end
   end
 
   private
@@ -87,7 +121,8 @@ class JudgeService
     end
   end
 
-  def judge_strength()
+  def judge_score()
     @strength = POKER_HAND.index(@hand)
   end
+
 end
