@@ -13,8 +13,8 @@ class CardsController < ApplicationController
 
   def check
     @card = JudgeService.new(card_params)
-    if @card.valid?
-      @card.judge_role
+    if @card.check_valid_card_set == nil
+      @card.judge_hand
       render :result, :status => 200
     else
       render :error
