@@ -2,19 +2,28 @@ class JudgeService
   include ActiveModel::Model
 
   VALID_CARD_REGEX =  /\A[SHDC]([1-9]|1[0-3]) [SHDC]([1-9]|1[0-3]) [SHDC]([1-9]|1[0-3]) [SHDC]([1-9]|1[0-3]) [SHDC]([1-9]|1[0-3])\z/
-  POKER_HAND = ["High Card", "One Pair", "Two Pair", "Three of a Kind",
-                "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush"]
+  POKER_HAND = [
+    "High Card",
+    "One Pair",
+    "Two Pair",
+    "Three of a Kind",
+    "Straight",
+    "Flush",
+    "Full House",
+    "Four of a Kind",
+    "Straight Flush"
+  ]
 
-  attr_accessor :card_set, :best
-  attr_reader :cards, :suits, :numbers, :number_set, :flush, :straight, :hand, :strength, :msg
+  attr_accessor :hand, :best
+  attr_reader :cards, :card_suits, :card_numbers, :number_set, :flush, :straight, :poker_hand, :strength, :msg
 
-  validate :check_valid_card_set
+  validate :check_valid_hand
 
-  def check_valid_card_set
-    if @card_set.blank?
+  def check_valid_hand
+    if @hand.blank?
       errors[:base] << "手札の情報が入力されていません。手札の情報を入力してください。（例：S8 S7 H6 H5 S4）"
       @msg = "手札の情報が入力されていません。手札の情報を入力してください。（例：S8 S7 H6 H5 S4）"
-    elsif @card_set.match(VALID_CARD_REGEX) == nil
+    elsif @hand.match(VALID_CARD_REGEX) == nil
       errors[:base] << "手札の情報が不正です。手札の情報を正確に入力してください。（例：S8 S7 H6 H5 S4）"
       @msg = "手札の情報が不正です。手札の情報を正確に入力してください。（例：S8 S7 H6 H5 S4）"
     else
@@ -23,7 +32,7 @@ class JudgeService
   end
 
   def judge_role
-    split_card_set
+    split_hand
     count_same_number
     flush?
     straight?
@@ -36,50 +45,50 @@ class JudgeService
   end
 
   class << self
-    def judge_strongest(cards)
-      judge_best(cards)
+    def judge_strongest(hands)
+      judge_best(hands)
     end
 
     private
-    def judge_best(cards)
+    def judge_best(hands)
       scores = []
 
-      cards.each do |card|
-        scores.push card.strength.to_i
+      hands.each do |hand|
+        scores.push hand.strength.to_i
       end
 
       high_score =  scores.max
 
-      for i in 0..cards.length-1 do
-        if cards[i].strength == high_score
-          cards[i].best = true
+      hands.each do |hand|
+        if hand.strength == high_score
+          hand.best = true
         else
-          cards[i].best = false
+          hand.best = false
         end
       end
     end
   end
 
   private
-  def split_card_set()
-    @cards = @card_set.split(" ")
+  def split_hand()
+    @cards = @hand.split(" ")
 
-    @suits = []
-    @numbers = []
+    @card_suits = []
+    @card_numbers = []
 
     @cards.each do |card|
-      @suits.push card[0]
-      @numbers.push card[1..-1].to_i
+      @card_suits.push card[0]
+      @card_numbers.push card[1..-1].to_i
     end
   end
 
   def count_same_number()
-    @number_set = @numbers.group_by{|number|number}.map{|key, value|value.size }.sort.reverse
+    @number_set = @card_numbers.group_by{|number|number}.map{|key, value|value.size }.sort.reverse
   end
 
   def flush?()
-    variety = @suits.uniq.size
-    if variety == 1
+    varieties = @card_suits.uniq.size
+    if varieties == 1
       @flush = true
     else
       @flush = false
@@ -87,7 +96,7 @@ class JudgeService
   end
 
   def straight?()
-    steps = @numbers.sort.map{|number|number - @numbers[0]}
+    steps = @card_numbers.sort.map{|number|number - @card_numbers[0]}
     if steps == [-4,-3,-2,-1,0] || steps == [0,9,10,11,12]
       @straight = true
     else
@@ -98,31 +107,31 @@ class JudgeService
   def judge_hand()
     case [@straight, @flush]
     when [true, true]
-      @hand = POKER_HAND[8]
+      @poker_hand = POKER_HAND[8]
     when [false, true]
-      @hand = POKER_HAND[5]
+      @poker_hand = POKER_HAND[5]
     when [true, false]
-      @hand = POKER_HAND[4]
+      @poker_hand = POKER_HAND[4]
     else
       case @number_set
       when [4, 1]
-        @hand = POKER_HAND[7]
+        @poker_hand = POKER_HAND[7]
       when [3, 2]
-        @hand = POKER_HAND[6]
+        @poker_hand = POKER_HAND[6]
       when [3, 1, 1]
-        @hand = POKER_HAND[3]
+        @poker_hand = POKER_HAND[3]
       when [2, 2, 1]
-        @hand = POKER_HAND[2]
+        @poker_hand = POKER_HAND[2]
       when [2, 1, 1, 1]
-        @hand = POKER_HAND[1]
+        @poker_hand = POKER_HAND[1]
       else
-        @hand = POKER_HAND[0]
+        @poker_hand = POKER_HAND[0]
       end
     end
   end
 
   def judge_score()
-    @strength = POKER_HAND.index(@hand)
+    @strength = POKER_HAND.index(@poker_hand)
   end
 
 end

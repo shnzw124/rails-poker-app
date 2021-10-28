@@ -1,6 +1,6 @@
 <div class="form">
-  <%= form_for @card, :url => {:action => 'check'} do |f| %>
-    <%= f.text_field :card_set, :class=>"text-field" %>
+  <%= form_for @hand, :url => {:action => 'check'} do |f| %>
+    <%= f.text_field :hand, :class=>"text-field" %>
     <%= f.submit 'Check', :class=>"submit" %>
   <% end %>
 </div>
